@@ -5,7 +5,7 @@ class HomeController < ApplicationController
       case params[:type]
       when "posts"
         @title = "Searched Posts"
-        @posts = Post.where("lower(title) LIKE '%#{params[:search].downcase}%' OR lower(content) LIKE '%#{params[:search].downcase}%'")
+        @posts = Post.where("lower(title) LIKE '%#{params[:search].downcase}%' OR lower(content) LIKE '%#{params[:search].downcase}%'").sort{ |a,b| b.vote_count <=> a.vote_count }
       when "subs"
         @title = "Searched Subreddits"
         @subs = Sub.where("lower(title) LIKE '%#{params[:search].downcase}%' OR lower(description) LIKE '%#{params[:search].downcase}%'")
